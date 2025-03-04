@@ -73,4 +73,14 @@ public class Calculator {
         return result;
     }
 
+    // 삭제 기능 구현
+    public void removeResult() {
+        if (!resultList.isEmpty()) {
+            resultList.remove(0); // 리스트의 첫 번째 요소 삭제
+        } else {
+            System.out.println("삭제할 연산 결과가 없습니다.");
+        }
+    }
+
+
 }

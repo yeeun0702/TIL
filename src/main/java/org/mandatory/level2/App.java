@@ -44,6 +44,16 @@ public class App {
             // Getter를 이용하여 연산 기록 출력
             System.out.println("현재까지 저장된 값 조회: " + calculator.getResultList());
 
+            // 연산 결과 삭제 여부 확인
+            System.out.print("연산 결과에서 가장 먼저 저장된 값을 삭제하시겠습니까? (yes 입력 시 삭제 / no 입력 시 유지): ");
+            String deleteInput = scanner.next();
+
+            if (deleteInput.equalsIgnoreCase("yes")) {
+                calculator.removeResult();
+                System.out.println("연산 결과 삭제 완료!");
+                System.out.println("현재까지의 연산 결과: " + calculator.getResultList());
+            }
+
             // 추가 계산 여부 확인
             System.out.print("더 계산하시겠습니까? (exit 입력 시 종료 / continue 입력 시 계속 진행): ");
             String continueCalculation = scanner.next();

@@ -5,6 +5,7 @@ import org.challenge.level3.exception.ErrorMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArithmeticCalculator<T extends Number> {
     private final List<Double> resultList = new ArrayList<>();
@@ -47,5 +48,20 @@ public class ArithmeticCalculator<T extends Number> {
         return new ArrayList<>(resultList);
     }
 
+    // 가장 먼저 저장된 연산 결과 삭제
+    public void removeResult() {
+        if (!resultList.isEmpty()) {
+            resultList.remove(0);
+        } else {
+            throw new InvalidInputException(ErrorMessage.INVALID_DELETE_NO_RESULT);
+        }
+    }
+
+    // 입력값보다 큰 결과 조회 (람다 & 스트림 활용)
+    public List<Double> filterGreaterThan(double threshold) {
+        return resultList.stream() //  저장된 연산 결과 리스트를 스트림으로 변환
+                .filter(result -> result > threshold) // 임계값보다 큰 값만 람다식을 이용하여 필터링
+                .collect(Collectors.toList()); // 필터링된 값을 리스트로 변환하여 반환
+    }
 
 }

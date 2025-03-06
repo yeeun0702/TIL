@@ -4,7 +4,7 @@ import org.challenge.level3.exception.DivideByZeroException;
 import org.challenge.level3.exception.ErrorMessage;
 import java.util.function.BiFunction;
 
-public enum OperatorType {
+public enum OperatorType { // 람다식 적용
     ADD("+", (a, b) -> a + b),
     SUBTRACT("-", (a, b) -> a - b),
     MULTIPLY("*", (a, b) -> a * b),
@@ -26,9 +26,9 @@ public enum OperatorType {
     }
 
     public static OperatorType fromSymbol(String symbol) {
-        for (OperatorType op : values()) {
-            if (op.symbol.equals(symbol)) {
-                return op;
+        for (OperatorType op : values()) { // Enum의 모든 값을 배열로 반환하여 모든 OperatorType을 순회
+            if (op.symbol.equals(symbol)) { // symbol 값과 입력된 값이 같다면
+                return op; // 연산자 반환
             }
         }
         throw new IllegalArgumentException(ErrorMessage.INVALID_OPERATOR);

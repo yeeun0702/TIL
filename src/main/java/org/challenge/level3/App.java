@@ -6,6 +6,8 @@ import org.challenge.level3.exception.ErrorMessage;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.challenge.level3.exception.ErrorMessage.*;
+
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -15,18 +17,15 @@ public class App {
             try {
                 // 첫 번째 숫자 입력
                 double num1 = getValidatedNumber(scanner, "첫 번째 숫자를 입력하세요: ");
-                calculator.setNum1(num1);
 
                 // 두 번째 숫자 입력
                 double num2 = getValidatedNumber(scanner, "두 번째 숫자를 입력하세요: ");
-                calculator.setNum2(num2);
 
                 // 연산자 입력 (올바른 값이 입력될 때까지 반복)
                 OperatorType operator = getValidatedOperator(scanner);
-                calculator.setOperator(operator);
 
                 // 연산 수행
-                double result = calculator.calculate();
+                double result = calculator.calculate(num1, num2, operator);
                 System.out.println("결과: " + result);
 
                 // 저장된 결과 중 특정 값보다 큰 값 조회
@@ -57,12 +56,12 @@ public class App {
             if (scanner.hasNextDouble()) {
                 double num = scanner.nextDouble();
                 if (num < 0) {
-                    System.out.println(ErrorMessage.INVALID_NUMBER);
+                    System.out.println(INVALID_NUMBER.getMessage());
                 } else {
                     return num;
                 }
             } else {
-                System.out.println(ErrorMessage.INVALID_NUMBER);
+                System.out.println(INVALID_NUMBER.getMessage());
                 scanner.next(); // 잘못된 입력 버리기
             }
         }
@@ -97,7 +96,7 @@ public class App {
             } else if (input.equalsIgnoreCase("no")) {
                 break;
             } else {
-                System.out.println(ErrorMessage.INVALID_DELETION_INPUT);
+                System.out.println(INVALID_DELETE_INPUT.getMessage());
             }
         }
     }
@@ -112,7 +111,7 @@ public class App {
             } else if (input.equalsIgnoreCase("continue")) {
                 return true;
             } else {
-                System.out.println(ErrorMessage.INVALID_CONTINUE_INPUT);
+                System.out.println(INVALID_CONTINUE_INPUT.getMessage());
             }
         }
     }

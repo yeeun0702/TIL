@@ -1,41 +1,20 @@
 package org.challenge.level3;
 
 import org.challenge.level3.exception.InvalidInputException;
-import org.challenge.level3.exception.ErrorMessage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.challenge.level3.exception.ErrorMessage.*;
+
 public class ArithmeticCalculator<T extends Number> {
     private final List<Double> resultList = new ArrayList<>();
-    private T num1; // 제네릭 타입을 활용한 필드 선언
-    private T num2; // 제네릭 타입을 활용한 필드 선언
-    private OperatorType operator;
-
-    //  입력 값 설정 메서드
-    public void setNum1(T num1) { // 제네릭 타입 T를 사용하여 입력값을 저장
-        if (num1.doubleValue() < 0) { // 음수 값 제한
-            throw new InvalidInputException(ErrorMessage.INVALID_NUMBER); // 예외 처리
-        }
-        this.num1 = num1;
-    }
-
-    public void setNum2(T num2) {
-        if (num2.doubleValue() < 0) {
-            throw new InvalidInputException(ErrorMessage.INVALID_NUMBER);
-        }
-        this.num2 = num2;
-    }
-
-    public void setOperator(OperatorType operator) {
-        this.operator = operator;
-    }
 
     //  연산 수행 (제네릭 활용)
-    public double calculate() {
+    public double calculate(T num1, T num2, OperatorType operator) {
         if (num1 == null || num2 == null || operator == null) {
-            throw new InvalidInputException(ErrorMessage.INVALID_OPERATOR);
+            throw new InvalidInputException(INVALID_OPERATOR.getMessage());
         }
 
         double result = operator.apply(num1.doubleValue(), num2.doubleValue()); // 모든 숫자 타입을 double로 변환
@@ -53,7 +32,7 @@ public class ArithmeticCalculator<T extends Number> {
         if (!resultList.isEmpty()) {
             resultList.remove(0);
         } else {
-            throw new InvalidInputException(ErrorMessage.INVALID_DELETE_NO_RESULT);
+            throw new InvalidInputException(INVALID_DELETE_NO_RESULT.getMessage());
         }
     }
 

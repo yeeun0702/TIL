@@ -1,15 +1,17 @@
 package org.challenge.level3;
 
 import org.challenge.level3.exception.DivideByZeroException;
-import org.challenge.level3.exception.ErrorMessage;
 import java.util.function.BiFunction;
+
+import static org.challenge.level3.exception.ErrorMessage.INVALID_DIVIDEBYZERO;
+import static org.challenge.level3.exception.ErrorMessage.INVALID_OPERATOR;
 
 public enum OperatorType { // 람다식 적용
     ADD("+", (a, b) -> a + b),
     SUBTRACT("-", (a, b) -> a - b),
     MULTIPLY("*", (a, b) -> a * b),
     DIVIDE("/", (a, b) -> {
-        if (b == 0) throw new DivideByZeroException(ErrorMessage.INVALID_DIVIDEBYZERO);
+        if (b == 0) throw new DivideByZeroException(INVALID_DIVIDEBYZERO.getMessage());
         return a / b;
     });
 
@@ -31,6 +33,6 @@ public enum OperatorType { // 람다식 적용
                 return op; // 연산자 반환
             }
         }
-        throw new IllegalArgumentException(ErrorMessage.INVALID_OPERATOR);
+        throw new IllegalArgumentException(INVALID_OPERATOR.getMessage());
     }
 }

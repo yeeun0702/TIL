@@ -36,13 +36,13 @@ public class CalculatorController {
             // 삭제 여부 확인 (yes → 삭제, no → 유지)
             if (confirmDeletion()) {
                 try {
-                calculator.removeResult();
-                outputView.displayDeleteSuccess();
-                outputView.displayHistory(calculator.getResultList());
-            } catch(CalculationException e){
-                outputView.displayErrorMessage(e.getMessage()); // 삭제할 연산 결과가 없을 경우 메시지 출력
+                    calculator.removeResult();
+                    outputView.displayDeleteSuccess();
+                    outputView.displayHistory(calculator.getResultList());
+                } catch(CalculationException e){
+                    outputView.displayErrorMessage(e.getMessage()); // 삭제할 연산 결과가 없을 경우 메시지 출력
+                }
             }
-        }
 
             // 추가 계산 여부 확인 (exit 입력 시 프로그램 종료)
             if (!confirmContinue()) {

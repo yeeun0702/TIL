@@ -35,13 +35,9 @@ public class OutputView {
         System.out.println("결과: " + result);
     }
 
-    public void displayHistory(List<Integer> history) {
-        System.out.println("현재까지 저장된 값 조회: " + history);
-    }
+    public void displayHistory(List<Integer> history) {System.out.println("현재까지 저장된 값 조회: " + history);}
 
     public void displayDeleteSuccess() {System.out.println("연산 결과 삭제 완료!");}
 
-    public void displayErrorMessage(String message) {
-        System.out.println("오류: " + message);
-    }
+    public void displayErrorMessage(String message) {System.out.println(message);}
 }

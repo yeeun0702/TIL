@@ -21,11 +21,10 @@ public class CalculatorController {
 
         while (true) {
             try {
-                calculator.setNum1(getValidatedNum1());
-                calculator.setNum2(getValidatedNum2());
-                calculator.setOperator(getValidatedOperator());
-
-                int result = calculator.calculate();
+                int num1 = getValidatedNum1();
+                int num2 = getValidatedNum2();
+                char operator = getValidatedOperator();
+                int result = calculator.calculate(num1, num2, operator);
                 outputView.displayResult(result);
             } catch (InvalidInputException | CalculationException | DivideByZeroException e) {
                 outputView.displayErrorMessage(e.getMessage());
@@ -37,13 +36,13 @@ public class CalculatorController {
             // 삭제 여부 확인 (yes → 삭제, no → 유지)
             if (confirmDeletion()) {
                 try {
-                calculator.removeResult();
-                outputView.displayDeleteSuccess();
-                outputView.displayHistory(calculator.getResultList());
-            } catch(CalculationException e){
-                outputView.displayErrorMessage(e.getMessage()); // 삭제할 연산 결과가 없을 경우 메시지 출력
+                    calculator.removeResult();
+                    outputView.displayDeleteSuccess();
+                    outputView.displayHistory(calculator.getResultList());
+                } catch(CalculationException e){
+                    outputView.displayErrorMessage(e.getMessage()); // 삭제할 연산 결과가 없을 경우 메시지 출력
+                }
             }
-        }
 
             // 추가 계산 여부 확인 (exit 입력 시 프로그램 종료)
             if (!confirmContinue()) {
@@ -53,11 +52,12 @@ public class CalculatorController {
         }
     }
 
+
     private int getValidatedNum1() {
         while (true) {
             try {
                 outputView.num1Message();
-                return inputView.getNum1();
+                return inputView.getNum();
             } catch (InvalidInputException e) {
                 outputView.displayErrorMessage(e.getMessage());
             }
@@ -68,7 +68,7 @@ public class CalculatorController {
         while (true) {
             try {
                 outputView.num2Message();
-                return inputView.getNum2();
+                return inputView.getNum();
             } catch (InvalidInputException e) {
                 outputView.displayErrorMessage(e.getMessage());
             }

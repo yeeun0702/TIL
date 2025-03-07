@@ -21,11 +21,10 @@ public class CalculatorController {
 
         while (true) {
             try {
-                calculator.setNum1(getValidatedNum1());
-                calculator.setNum2(getValidatedNum2());
-                calculator.setOperator(getValidatedOperator());
-
-                int result = calculator.calculate();
+                int num1 = getValidatedNum1();
+                int num2 = getValidatedNum2();
+                char operator = getValidatedOperator();
+                int result = calculator.calculate(num1, num2, operator);
                 outputView.displayResult(result);
             } catch (InvalidInputException | CalculationException | DivideByZeroException e) {
                 outputView.displayErrorMessage(e.getMessage());
@@ -53,11 +52,12 @@ public class CalculatorController {
         }
     }
 
+
     private int getValidatedNum1() {
         while (true) {
             try {
                 outputView.num1Message();
-                return inputView.getNum1();
+                return inputView.getNum();
             } catch (InvalidInputException e) {
                 outputView.displayErrorMessage(e.getMessage());
             }
@@ -68,7 +68,7 @@ public class CalculatorController {
         while (true) {
             try {
                 outputView.num2Message();
-                return inputView.getNum2();
+                return inputView.getNum();
             } catch (InvalidInputException e) {
                 outputView.displayErrorMessage(e.getMessage());
             }

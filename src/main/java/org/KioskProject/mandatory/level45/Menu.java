@@ -18,14 +18,14 @@ public class Menu {
 
     // List에 포함된 MenuItem을 순차적으로 보여주는 함수
     public void showMenuItems() {
-        System.out.println("[ " + categoryName + " MENU ]");
+        System.out.println("\n[ " + categoryName + " MENU ]");
 
         for (int i = 0; i < menuItems.size(); i++) {
             MenuItem item = menuItems.get(i);
             System.out.printf("%d. %-15s | W %-4.1f | %s%n",
                     i + 1, item.getMenuName(), item.getPrice(), item.getDescription());
         }
-        System.out.print("0. 뒤로가기");
+        System.out.println("0. 뒤로가기");
     }
 
     // List를 리턴하는 함수

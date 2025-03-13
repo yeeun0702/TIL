@@ -1,5 +1,9 @@
 package org.KioskProject.mandatory.level45;
 
+import org.KioskProject.mandatory.level45.exception.ErrorMessage;
+import org.KioskProject.mandatory.level45.exception.InvalidInputException;
+
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,77 +16,101 @@ public class Kiosk {
         this.scanner = new Scanner(System.in);
     }
 
-    // main 에서 관리하던 입력과 반복문 로직을 start 함수로 변경
+    /**
+     * main 에서 관리하던 입력과 반복문 로직을 start 함수로 변경
+     */
     public void start() {
         while (true) {// 프로그램 반복 실행
+            try {
+                printMainMenu();
 
-            // 메인 메뉴(Burgers, Drinks, Desserts) 출력
-            System.out.println("\n[ MAIN MENU ]");
-            for (int i = 0; i < menus.size(); i++) {
-                // 메뉴 카테고리의 이름을 차례로 인덱스 접근하여 출력
-                System.out.println((i + 1) + ". " + menus.get(i).getCategoryName());
-            }
-            System.out.println("0. 종료      | 종료");
+                // 메뉴 카테고리 숫자를 입력 받기
+                int menuCategoryNum = getValidatedIntInput("");
 
-            // 메뉴 카테고리 숫자를 입력 받기
-            int menuCategoryNum = scanner.nextInt();
+                // 0 입력 시 프로그램 종료
+                if (menuCategoryNum == 0) {
+                    System.out.println("프로그램을 종료합니다.");
+                    break;
+                }
 
-            // 0 입력 시 프로그램 종료
-            if (menuCategoryNum == 0) {
-                System.out.println("프로그램을 종료합니다.");
-                break;
-            }
-
-            //  입력 받은 숫자가 올바르다면 인덱스로 활용하여 List에 접근하기
-            if (menuCategoryNum >= 0 && menuCategoryNum <= menus.size()) {
-
+                if (menuCategoryNum < 1 || menuCategoryNum > menus.size()) {
+                    throw new InvalidInputException(ErrorMessage.INVALID_INPUT.getMessage());
+                }
                 // showMenuSelection 메서드를 활용하여 메뉴에 접근
                 showMenuSelection(menus.get(menuCategoryNum - 1));
-            } else {
-                System.out.println("잘못된 선택입니다. 메뉴 번호를 확인해주세요.");
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println(ErrorMessage.UNKNOWN_ERROR.getMessage());
+                scanner.nextLine(); // 입력 버퍼 초기화
             }
         }
-
     }
 
-    // 특정 카테고리의 메뉴 출력 및 선택 처리
+    /**
+     * 메인 메뉴 출력 (Burgers, Drinks, Desserts)
+     */
+    private void printMainMenu() {
+        System.out.println("\n[ MAIN MENU ]");
+        for (int i = 0; i < menus.size(); i++) {
+            System.out.println((i + 1) + ". " + menus.get(i).getCategoryName());
+        }
+        System.out.println("0. 종료      | 종료");
+    }
+
+    /**
+     * 특정 카테고리의 메뉴 출력 및 선택 처리
+     */
     public void showMenuSelection(Menu menu) {
-        menu.showMenuItems(); // 해당 카테고리의 메뉴 출력
         while (true) {
-
-            // 상세 메뉴 숫자 입력 받기
-            System.out.print("\n메뉴를 선택하세요: ");
-            int itemChoice = scanner.nextInt();
-
-            // `0` 입력 시 뒤로가기
-            if (itemChoice == 0) {
-                break;
-            }
+            menu.showMenuItems(); // 해당 카테고리의 메뉴 출력
 
             // 메뉴가 비어 있는지 확인
             if (menu.getMenuItems() == null || menu.getMenuItems().isEmpty()) {
-                System.out.println("현재 선택한 카테고리에 메뉴가 없습니다.");
+                System.out.println(ErrorMessage.EMPTY_MENU.getMessage());
                 return;
             }
+            try {
+                // 상세 메뉴 숫자 입력 받기
+                int itemChoice = getValidatedIntInput("\n메뉴를 선택하세요: ");
 
-            // 올바른 입력이라면 해당 메뉴 출력
-            if (itemChoice >= 1 && itemChoice <= menu.getMenuItems().size()) {
-                MenuItem selectedItem = menu.getMenuItems().get(itemChoice - 1);
-                System.out.printf("선택한 메뉴: %s | W %.1f | %s",
-                        selectedItem.getMenuName(), selectedItem.getPrice(), selectedItem.getDescription());
-            } else {
-                System.out.println("잘못된 선택입니다. 메뉴 번호를 확인해주세요.");
+                // `0` 입력 시 뒤로가기
+                if (itemChoice == 0) break;
+
+                if (itemChoice < 1 || itemChoice > menu.getMenuItems().size()) {
+                    throw new InvalidInputException(ErrorMessage.INVALID_INPUT.getMessage());
+                }
+
+                printSelectedMenu(menu, itemChoice);
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
+
+    /**
+     * 선택한 메뉴 출력
+     */
+    private void printSelectedMenu(Menu menu, int itemChoice) {
+        MenuItem selectedItem = menu.getMenuItems().get(itemChoice - 1);
+        System.out.printf("선택한 메뉴: %s | W %.1f | %s\n",
+                selectedItem.getMenuName(), selectedItem.getPrice(), selectedItem.getDescription());
+    }
+
+
+    /**
+     *  숫자 입력을 검증하는 메서드 (숫자가 아닌 입력 방지)
+     */
+    private int getValidatedIntInput(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            if (scanner.hasNextInt()) {
+                return scanner.nextInt();
+            } else {
+                System.out.println(ErrorMessage.NOT_A_NUMBER.getMessage());
+                scanner.next(); // 잘못된 입력 제거
+            }
+        }
+    }
+
 }
-
-
-
-
-
-
-
-
-
-

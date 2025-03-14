@@ -27,4 +27,16 @@ public enum UserType {
                 "3. 학생     :  3%\n" +
                 "4. 일반     :  0%");
     }
+
+    public static UserType from(int userTypeNum) {
+        switch (userTypeNum) {
+            case 1: return NATIONALMERIT;
+            case 2: return SOLDIER;
+            case 3: return STUDENT;
+            case 4: return GENERAL;
+            default:
+                System.out.println("잘못된 입력입니다. 기본값(일반)으로 설정합니다.");
+                return GENERAL;
+        }
+    }
 }

@@ -18,12 +18,15 @@ public class Cart {
         System.out.println(menuItem.getMenuName() + "이(가) 장바구니에 추가되었습니다.");
     }
 
-    // [ ORDER MENU ] 출력
+    // 장바구니가 비어있지 않을 경우 [ ORDER MENU ] 출력
     public void printOrderMenu() {
-        System.out.println("\n[ ORDER MENU ]\n" +
-                "4. Orders       | 장바구니를 확인 후 주문합니다.\n" +
-                "5. Cancel       | 진행중인 주문을 취소합니다.");
+        if (!cartItems.isEmpty()) {
+            System.out.println("\n[ ORDER MENU ]\n" +
+                    "4. Orders       | 장바구니를 확인 후 주문합니다.\n" +
+                    "5. Cancel       | 진행 중인 주문을 취소합니다.");
+        }
     }
+
 
     // 장바구니에 담긴 목록 및 금액 출력
     public void showCart() {
@@ -39,7 +42,7 @@ public class Cart {
                     cartItem.getMenuItem().getMenuName(),
                     cartItem.getMenuItem().getPrice(),
                     cartItem.getMenuItem().getDescription());
-            total = cartItem.getTotalPrice();
+            total += cartItem.getTotalPrice();
         }
         System.out.printf("\n[ Total ]\nW %.1f" , total);
     }

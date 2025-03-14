@@ -21,9 +21,7 @@ public class Kiosk {
             printMainMenu();
 
             // 장바구니 기능
-            if (!cart.isEmpty()) { // 장바구니가 비어있지 않다면
-                cart.printOrderMenu(); // 주문/취소 메뉴 출력
-            }
+            cart.printOrderMenu();
 
             // 메뉴 카테고리 숫자를 입력 받기
             int menuCategoryNum = scanner.nextInt();

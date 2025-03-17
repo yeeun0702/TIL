@@ -1,4 +1,4 @@
-package org.KioskProject.challenge.level1;
+package org.KioskProject.challenge.level2.menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +11,14 @@ public class Menu {
     private final List<MenuItem> menuItems;
 
     // 생성자
-    public Menu(String categoryName) {
+    public Menu(String categoryName, List<MenuItem> menuItems ) {
         this.categoryName = categoryName;
-        this.menuItems = new ArrayList<>();
+        this.menuItems = menuItems;
     }
 
     // List에 포함된 MenuItem을 순차적으로 보여주는 함수
     public void showMenuItems() {
-        System.out.println("[ " + categoryName + " MENU ]");
+        System.out.println("\n[ " + categoryName + " MENU ]");
         for (int i = 0; i < menuItems.size(); i++) {
             MenuItem item = menuItems.get(i);
             System.out.printf("%d. %-15s | W %-4.1f | %s%n",

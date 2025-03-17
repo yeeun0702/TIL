@@ -8,13 +8,14 @@ public class Main {
     public static void main(String[] args) {
 
         // List 선언 및 초기화
-        List<MenuItem> menuItems = new ArrayList<>();
-
-        // add 함수를 통해 new MenuItem(이름, 가격, 설명) List에 삽입
-        menuItems.add(new MenuItem("ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("SmokeShack", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("Cheeseburger", 6.9, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("Hamburger", 5.4, "비프패티를 기반으로 야채가 들어간 기본버거"));
+        List<MenuItem> menuItems = new ArrayList<>(
+                List.of(
+                        new MenuItem("ShackBurger", 6.5, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"),
+                        new MenuItem("SmokeBurger", 8.5, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"),
+                        new MenuItem("CheeseBurger", 5.5, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"),
+                        new MenuItem("Hamburger", 4.5, "비프패티를 기반으로 야채가 들어간 기본버거")
+                )
+        );
 
         // Scanner 선언
         Scanner scanner = new Scanner(System.in);
@@ -23,8 +24,6 @@ public class Main {
         System.out.println("[ SHAKESHACK MENU ]");
         for (int i = 0; i < menuItems.size(); i++) {
             MenuItem item = menuItems.get(i);
-
-            // 정규 표현식 사용
             System.out.printf("%d. %-15s | W %-4.1f | %s%n",
                     i + 1, item.getMenuName(), item.getPrice(), item.getDescription());
         }
@@ -48,7 +47,7 @@ public class Main {
                 System.out.printf("선택한 메뉴 : %d. %-15s | W %-4.1f | %s%n",
                         n, selectedItem.getMenuName(), selectedItem.getPrice(), selectedItem.getDescription());
             } else {
-                System.out.println("잘못된 선택입니다. 메뉴 번호를 확인해주세요.");
+                throw new IllegalArgumentException("잘못된 입력입니다. 메뉴 번호를 확인해주세요.");
             }
         }
         scanner.close();

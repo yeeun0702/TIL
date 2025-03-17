@@ -1,10 +1,12 @@
-package org.KioskProject.mandatory.level45;
+package org.KioskProject.challenge.level2;
+
+import org.KioskProject.challenge.level2.menu.Menu;
+import org.KioskProject.challenge.level2.menu.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
 
         // Menu 객체 생성하면서 카테고리 이름 설정
@@ -40,6 +42,7 @@ public class Main {
                         )
                 )
         );
+
         // Kiosk에 메뉴 추가
         List<Menu> menus = new ArrayList<>();
         menus.add(burgerMenu);

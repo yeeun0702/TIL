@@ -1,9 +1,9 @@
 package org.KioskProject.challenge.level1;
 
 public class MenuItem {
-    private String menuName; // 이름
-    private double price; // 가격
-    private String description; // 설명
+    private final String menuName; // 이름
+    private final double price; // 가격
+    private final String description; // 설명
 
     // 생성자
     public MenuItem(String menuName, double price, String description){

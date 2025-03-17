@@ -1,5 +1,4 @@
-package org.KioskProject.mandatory.level3;
-
+package org.KioskProject.challenge.level2.menu;
 
 public class MenuItem {
     private final String menuName; // 이름
@@ -13,9 +12,7 @@ public class MenuItem {
         this.description = description;
     };
 
-    public String getMenuName(){
-        return menuName;
-    }
+    public String getMenuName(){ return menuName;}
 
     public double getPrice() {
         return price;
@@ -24,5 +21,4 @@ public class MenuItem {
     public String getDescription() {
         return description;
     }
-
 }

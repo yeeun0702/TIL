@@ -32,11 +32,7 @@ public class Menu {
         return menuItems;
     }
 
-    // MenuItem을 리스트에 추가하는 함수
-    public void addMenuItem(MenuItem item) {
-        menuItems.add(item);
-    }
-
+    // getter
     public String getCategoryName() {
         return categoryName;
     }

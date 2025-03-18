@@ -37,6 +37,7 @@ public class Menu {
         menuItems.add(item);
     }
 
+    // CagegoryName getter
     public String getCategoryName() {
         return categoryName;
     }

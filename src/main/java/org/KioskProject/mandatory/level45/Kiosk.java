@@ -11,6 +11,7 @@ public class Kiosk {
     private List<Menu> menus; // 메뉴 카테고리의 메뉴들 (Burgers, Drinks, Desserts)을 리스트로 관리
     private Scanner scanner;
 
+    // 생성자
     public Kiosk(List<Menu> menus) { // 키오스크 속에 메뉴들을 생성
         this.menus = menus;
         this.scanner = new Scanner(System.in);
